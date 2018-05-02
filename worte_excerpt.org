@@ -1,0 +1,1009 @@
+* mix
+** der Betrug
+*** i1								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       77e21e51-a6ff-4b7f-a487-1bfbee23c637
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+prevara, obmana
+**** odgovor
+der Betrug
+*** i2								      :drill:
+    SCHEDULED: <2018-05-28 Mon>
+    :PROPERTIES:
+    :ID:       4651b542-a1b2-487f-8a77-8fc138e8bbeb
+    :DRILL_LAST_INTERVAL: 48.1172
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.5
+    :DRILL_EASE: 2.22
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:04]
+    :END:
+*der Betrug*
+**** odgovor
+prevara, obmana
+*** i3								      :drill:
+    SCHEDULED: <2018-04-17 Tue>
+    :PROPERTIES:
+    :ID:       885a0bd5-455e-4e80-bc20-76459db67b11
+    :DRILL_LAST_INTERVAL: 26.791
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:30]
+    :END:
+množina imenice *der Betrug*
+**** odgovor
+nema množine
+*** betrügen
+**** gz1							      :drill:
+     SCHEDULED: <2018-04-15 Sun>
+     :PROPERTIES:
+     :ID:       02aa4036-66a7-4b61-b9de-0a266626bb64
+     :DRILL_LAST_INTERVAL: 25.88
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 4.333
+     :DRILL_EASE: 2.6
+     :DRILL_LAST_QUALITY: 5
+     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:54]
+     :END:
+prevariti, varati
+***** odgovor
+betrügen
+**** gz2							      :drill:
+     SCHEDULED: <2018-04-12 Thu>
+     :PROPERTIES:
+     :ID:       d9a7eeb4-d718-4d6d-af60-3ca64fb85b73
+     :DRILL_LAST_INTERVAL: 23.271
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.667
+     :DRILL_EASE: 2.36
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:52]
+     :END:
+ *betrügen*
+***** odgovor
+prevariti, varati
+**** gz1							      :drill:
+     SCHEDULED: <2018-04-13 Fri>
+     :PROPERTIES:
+     :ID:       2b01cadc-3595-4714-83f0-c18d219053ca
+     :DRILL_LAST_INTERVAL: 24.12
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.667
+     :DRILL_EASE: 2.36
+     :DRILL_LAST_QUALITY: 3
+     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:55]
+     :END:
+ 3.l.jd präsens, 1.l.jd präteritum, 3.l.jd perfekt od *betrügen*
+***** o
+ - er betrügt
+ - ich betrog
+ - er hat betrogen
+** die Anklage
+*** i1								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       2ec88c96-edc0-422b-bc8f-25de28a31e1b
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:55]
+    :END:
+tužba; optužba
+**** odgovor
+die Anklage
+*** i2								      :drill:
+    SCHEDULED: <2018-04-15 Sun>
+    :PROPERTIES:
+    :ID:       6d4354df-b1e1-4f3c-a0a1-d4517b57f8c3
+    :DRILL_LAST_INTERVAL: 25.88
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:56]
+    :END:
+*die Anklage*
+**** odgovor
+tužba; optužba
+*** i3								      :drill:
+    SCHEDULED: <2018-04-15 Sun>
+    :PROPERTIES:
+    :ID:       4435ba85-8ec2-495c-b2f6-33ff623c4e58
+    :DRILL_LAST_INTERVAL: 25.88
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+množina imenice *die Anklage*
+**** odgovor
+die Anklagen
+*** i4								      :drill:
+    SCHEDULED: <2018-04-17 Tue>
+    :PROPERTIES:
+    :ID:       0142d625-e752-46a9-a7f7-0bc9d0203981
+    :DRILL_LAST_INTERVAL: 25.813
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.46
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-22 Thu 08:27]
+    :END:
+jednina i rod od *die Anklagen*
+**** odgovor
+die Anklage
+*** anklagen
+**** gz1							      :drill:
+     SCHEDULED: <2018-04-19 Thu>
+     :PROPERTIES:
+     :ID:       794e4e7e-72ab-4dd4-b08d-ddac3117f463
+     :DRILL_LAST_INTERVAL: 28.7036
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 4.667
+     :DRILL_EASE: 2.7
+     :DRILL_LAST_QUALITY: 5
+     :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:30]
+     :END:
+tužiti; optužiti
+***** odgovor
+anklagen
+**** gz2							      :drill:
+     SCHEDULED: <2018-06-03 Sun>
+     :PROPERTIES:
+     :ID:       5ddcaa41-7d13-44cf-b6df-7cd952a4e60d
+     :DRILL_LAST_INTERVAL: 54.1648
+     :DRILL_REPEATS_SINCE_FAIL: 5
+     :DRILL_TOTAL_REPEATS: 4
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.75
+     :DRILL_EASE: 2.36
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:05]
+     :END:
+ *anklagen*
+***** odgovor
+tužiti; optužiti
+**** gz1							      :drill:
+     SCHEDULED: <2018-04-13 Fri>
+     :PROPERTIES:
+     :ID:       70b64909-4974-4154-bf00-48729921501e
+     :DRILL_LAST_INTERVAL: 24.12
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.667
+     :DRILL_EASE: 2.36
+     :DRILL_LAST_QUALITY: 3
+     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:52]
+     :END:
+Nadopuni:
+- /Musharraf ist am Dienstag wegen Mordes und Verschwörung zum Mord
+  ??, bestätigten Justizbeamte./
+- he was charged/indicted
+***** o
+er ist angeklagt worden
+*** i								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       70e0d3f3-26a4-4fcd-9595-857fd4ae48d5
+    :DRILL_LAST_INTERVAL: 4.14
+    :DRILL_REPEATS_SINCE_FAIL: 2
+    :DRILL_TOTAL_REPEATS: 5
+    :DRILL_FAILURE_COUNT: 1
+    :DRILL_AVERAGE_QUALITY: 3.4
+    :DRILL_EASE: 2.32
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:06]
+    :END:
+translate to English: /Anklage erheben/
+**** o
+to press charges
+*** i								      :drill:
+    SCHEDULED: <2018-04-16 Mon>
+    :PROPERTIES:
+    :ID:       5dec6d18-d0a3-4e0e-8301-27f01e8bd2e1
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-22 Thu 08:26]
+    :END:
+translate: /to press charges/
+**** o
+Anklage erheben
+*** i								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       d68cb818-130a-4ec9-a6a0-35982c3fc634
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+translate to English: /Anklage fallenlassen/
+**** o
+to drop charges
+*** i								      :drill:
+    SCHEDULED: <2018-06-03 Sun>
+    :PROPERTIES:
+    :ID:       278e6dea-7c7c-4cc6-acdc-e7ccb2a2194b
+    :DRILL_LAST_INTERVAL: 54.1648
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.75
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:07]
+    :END:
+translate: /to drop charges/
+**** o
+Anklage fallenlassen
+*** i								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       d219d392-2cd5-4ce2-99e3-18708074862c
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:54]
+    :END:
+translate to English: /schuldig im Sinne der Anklage/
+**** o
+guilty as charged
+*** i								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       7e034565-81ed-446b-b47b-3688c65aa00b
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+translate to idiom: /guilty as charged/
+**** o
+schuldig im Sinne der Anklage
+*** lauten auf etw
+**** i								      :drill:
+     SCHEDULED: <2018-05-28 Mon>
+     :PROPERTIES:
+     :ID:       6f0f4ed0-1b55-4144-ae10-d1a2cfd2ebf5
+     :DRILL_LAST_INTERVAL: 48.1172
+     :DRILL_REPEATS_SINCE_FAIL: 5
+     :DRILL_TOTAL_REPEATS: 4
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.5
+     :DRILL_EASE: 2.22
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:05]
+     :END:
+Prevedi:
+- /Die Anklage gegen ihn *lautet auf* Mord und dreifachen versuchten
+  Mord./
+***** o
+(njegova) tužba glasi: ubojstvo i trostruki pokušaj ubojstva
+**** i								      :drill:
+     SCHEDULED: <2018-04-18 Wed>
+     :PROPERTIES:
+     :ID:       1654d1fc-f096-40db-9ed7-f8b2f154c2df
+     :DRILL_LAST_INTERVAL: 27.7286
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 4.333
+     :DRILL_EASE: 2.6
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:30]
+     :END:
+Prevedi: /Papiri glase na moje ime/
+***** o
+/Die Papiere lauten auf meinen Namen/
+**** i								      :drill:
+     SCHEDULED: <2018-04-13 Fri>
+     :PROPERTIES:
+     :ID:       a89329e1-4835-44a1-b758-40d889a4b839
+     :DRILL_LAST_INTERVAL: 24.12
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.667
+     :DRILL_EASE: 2.36
+     :DRILL_LAST_QUALITY: 3
+     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+     :END:
+Prevedi: /Presuda glasi: šest mjeseci zatvora/
+***** o
+sein Urteil *lautete auf* sechs Monate Gefängnis
+** teilweise
+*** i								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       6d4e47ed-4612-4aa6-91f3-461fdaa1e67d
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:54]
+    :END:
+teilweise
+**** o
+djelomice, dijelom
+*** i								      :drill:
+    SCHEDULED: <2018-04-15 Sun>
+    :PROPERTIES:
+    :ID:       314390a6-3d7c-4b3b-a60b-be3d7d10dcde
+    :DRILL_LAST_INTERVAL: 25.88
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+djelomice, dijelom
+**** o
+teilweise
+** die Fliese
+*** i1								      :drill:
+    SCHEDULED: <2018-04-18 Wed>
+    :PROPERTIES:
+    :ID:       3bcbdeb4-1011-4d4b-8173-ef4b01af8329
+    :DRILL_LAST_INTERVAL: 27.7286
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 08:33]
+    :END:
+(keramička) pločica
+**** odgovor
+die Fliese
+*** i2								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       ce3ba5cc-70d3-40ee-9837-2f0a55847e84
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:55]
+    :END:
+*die Fliese*
+**** odgovor
+(keramička) pločica
+*** i3								      :drill:
+    SCHEDULED: <2018-04-19 Thu>
+    :PROPERTIES:
+    :ID:       2754b55e-9624-42fc-8ecd-ef19a5a8a76a
+    :DRILL_LAST_INTERVAL: 28.7036
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.667
+    :DRILL_EASE: 2.7
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:35]
+    :END:
+množina imenice *die Fliese*
+**** odgovor
+die Fliesen
+*** i4								      :drill:
+    SCHEDULED: <2018-04-18 Wed>
+    :PROPERTIES:
+    :ID:       d974678a-5e60-4533-9dbf-0cf3b32b40f4
+    :DRILL_LAST_INTERVAL: 27.7286
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:30]
+    :END:
+jednina i rod od *die Fliesen*
+**** odgovor
+die Fliese
+** der Bach
+*** i1								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       449abf44-febc-4b7f-9a55-00c12b00f6ba
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:52]
+    :END:
+potok
+**** odgovor
+der Bach
+*** i2								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       c172a816-3868-4b0e-ad18-7cfe4393b827
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+*der Bach*
+**** odgovor
+potok
+*** i3								      :drill:
+    SCHEDULED: <2018-04-20 Fri>
+    :PROPERTIES:
+    :ID:       7e01a542-73c9-4008-a2ef-3a185fa95af1
+    :DRILL_LAST_INTERVAL: 9.0127
+    :DRILL_REPEATS_SINCE_FAIL: 3
+    :DRILL_TOTAL_REPEATS: 7
+    :DRILL_FAILURE_COUNT: 2
+    :DRILL_AVERAGE_QUALITY: 3.143
+    :DRILL_EASE: 2.28
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-04-11 Wed 10:21]
+    :END:
+množina imenice *der Bach*
+**** odgovor
+die Bächer
+*** i4								      :drill:
+    SCHEDULED: <2018-06-03 Sun>
+    :PROPERTIES:
+    :ID:       549ad06a-3547-4ce5-a5c7-696b6fd1c03e
+    :DRILL_LAST_INTERVAL: 54.1648
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.75
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:11]
+    :END:
+jednina i rod od *die Bächer*
+**** odgovor
+der Bach
+** die Platte
+*** i1								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       3bc1e758-bae9-4355-b941-429d663c99f5
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+ploča, plata, disk
+**** odgovor
+die Platte
+*** i2								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       e6865788-dc86-47de-ac3f-e1114f34045a
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:55]
+    :END:
+*die Platte*
+**** odgovor
+ploča, plata, disk
+*** i3								      :drill:
+    SCHEDULED: <2018-04-18 Wed>
+    :PROPERTIES:
+    :ID:       2422ffa7-d1c2-46f4-a2d7-78a4836299e6
+    :DRILL_LAST_INTERVAL: 27.7286
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 08:29]
+    :END:
+množina imenice *die Platte*
+**** odgovor
+die Platten
+*** i4								      :drill:
+    SCHEDULED: <2018-04-18 Wed>
+    :PROPERTIES:
+    :ID:       f623126b-7941-4bb3-8071-1ed347fa5b77
+    :DRILL_LAST_INTERVAL: 27.7286
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:32]
+    :END:
+jednina i rod od *die Platten*
+**** odgovor
+die Platte
+** der Ranzen
+*** i1								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       959195e3-de9a-4944-80b2-bb40b1e13b0b
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:55]
+    :END:
+ruksak (posebice školska torba)
+**** odgovor
+der Ranzen
+*** i2								      :drill:
+    SCHEDULED: <2018-04-15 Sun>
+    :PROPERTIES:
+    :ID:       fd684124-5253-425d-9757-eb4bacc02ded
+    :DRILL_LAST_INTERVAL: 25.88
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+*der Ranzen*
+**** odgovor
+ruksak (posebice školska torba)
+*** i3								      :drill:
+    SCHEDULED: <2018-06-05 Tue>
+    :PROPERTIES:
+    :ID:       39661e95-0b51-4589-a9b5-80493b9448ee
+    :DRILL_LAST_INTERVAL: 56.0512
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.46
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:14]
+    :END:
+množina imenice *der Ranzen*
+**** odgovor
+die Ranzen
+*** i4								      :drill:
+    SCHEDULED: <2018-04-15 Sun>
+    :PROPERTIES:
+    :ID:       28394487-1a48-44ff-820b-ea74e70b9c60
+    :DRILL_LAST_INTERVAL: 25.88
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+jednina i rod od *die Ranzen*
+**** odgovor
+der Ranzen
+** turnen
+*** gz1								      :drill:
+    SCHEDULED: <2018-04-16 Mon>
+    :PROPERTIES:
+    :ID:       dce595c9-901e-4a42-bbae-c752e1a4e154
+    :DRILL_LAST_INTERVAL: 26.791
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:56]
+    :END:
+vježbati, gimnasticirati
+**** odgovor
+turnen
+*** gz2								      :drill:
+    SCHEDULED: <2018-06-05 Tue>
+    :PROPERTIES:
+    :ID:       73d0ce90-d442-4885-9de7-4d6b7feba221
+    :DRILL_LAST_INTERVAL: 56.0512
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.46
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:14]
+    :END:
+*turnen*
+**** odgovor
+vježbati, gimnasticirati
+*** i								      :drill:
+    SCHEDULED: <2018-04-12 Thu>
+    :PROPERTIES:
+    :ID:       6c569845-115b-4632-ac43-d84ba24a6fa4
+    :DRILL_LAST_INTERVAL: 23.271
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+fizička vježba (u gimnastici, u teretani, doma..)
+**** o
+die Turnübung
+*** i								      :drill:
+    SCHEDULED: <2018-06-03 Sun>
+    :PROPERTIES:
+    :ID:       15535e96-43e8-4867-8e0d-f8ed32f0b72f
+    :DRILL_LAST_INTERVAL: 54.1648
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.75
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:14]
+    :END:
+*die Turnübung*
+**** o
+fizička vježba (u gimnastici, u teretani, doma..)
+** die Turnmatte
+*** i1								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       909f4b14-21b3-45ee-9475-b3f3b7256aa2
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+strunjača, gym mat
+**** odgovor
+die Turnmatte
+*** i2								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       0fddb545-6c62-4df2-9573-ad399ebc4677
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+*die Turnmatte*
+**** odgovor
+strunjača, gym mat
+** eine Besorgung machen
+*** i								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       8aeb4c39-46cc-48d7-b6e6-795cca7bfa95
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+translate: /To run an errand/
+**** o
+eine Besorgung machen
+*** i								      :drill:
+    SCHEDULED: <2018-04-19 Thu>
+    :PROPERTIES:
+    :ID:       ffd88df9-29b7-4456-a5ee-fc7911fb77c6
+    :DRILL_LAST_INTERVAL: 28.7036
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.667
+    :DRILL_EASE: 2.7
+    :DRILL_LAST_QUALITY: 5
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 08:33]
+    :END:
+translate to English: /eine Besorgung machen/
+**** o
+to run an errand
+** das Geschoss
+*** i1								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       89e6fb87-da2d-43d2-a311-67d513b7774f
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:55]
+    :END:
+kat (storey); metak, zrno, projektil
+**** odgovor
+das Geschoss
+*** i2								      :drill:
+    SCHEDULED: <2018-04-12 Thu>
+    :PROPERTIES:
+    :ID:       b3f7ad2c-9614-4eb3-83e9-219765447dd4
+    :DRILL_LAST_INTERVAL: 23.271
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 1
+    :DRILL_AVERAGE_QUALITY: 3.0
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+sva značenja od  *das Geschoss*
+**** odgovor
+kat (storey);  metak, zrno, projektil
+*** i3								      :drill:
+    SCHEDULED: <2018-04-13 Fri>
+    :PROPERTIES:
+    :ID:       e0c090e4-3dcb-427d-8f8a-699b60c693a6
+    :DRILL_LAST_INTERVAL: 24.12
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.667
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
+    :END:
+množina imenice *das Geschoss*
+**** odgovor
+die Geschosse
+*** i4								      :drill:
+    SCHEDULED: <2018-06-03 Sun>
+    :PROPERTIES:
+    :ID:       1dcd0b18-527d-4f8e-a4f5-e2b1705a9166
+    :DRILL_LAST_INTERVAL: 54.1648
+    :DRILL_REPEATS_SINCE_FAIL: 5
+    :DRILL_TOTAL_REPEATS: 4
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 3.75
+    :DRILL_EASE: 2.36
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:14]
+    :END:
+jednina i rod od *die Geschosse*
+**** odgovor
+das Geschoss
+** der Schuss
+*** i1								      :drill:
+    SCHEDULED: <2018-04-14 Sat>
+    :PROPERTIES:
+    :ID:       a56ab401-d286-4232-bb56-6567954f04d2
+    :DRILL_LAST_INTERVAL: 25.0
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.5
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:53]
+    :END:
+shot (pucanj, hitac; metak)
+**** odgovor
+der Schuss
+*** i2								      :drill:
+    SCHEDULED: <2018-04-17 Tue>
+    :PROPERTIES:
+    :ID:       8ec8b0e6-e4d0-4438-bb19-d43946498767
+    :DRILL_LAST_INTERVAL: 26.791
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.333
+    :DRILL_EASE: 2.6
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:39]
+    :END:
+*der Schuss*
+**** odgovor
+shot (pucanj, hitac, metak)
+*** i3								      :drill:
+    SCHEDULED: <2018-04-17 Tue>
+    :PROPERTIES:
+    :ID:       b89ec477-8c62-4906-bdd4-1d499a5783ed
+    :DRILL_LAST_INTERVAL: 26.7536
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.46
+    :DRILL_LAST_QUALITY: 3
+    :DRILL_LAST_REVIEWED: [2018-03-21 Wed 10:39]
+    :END:
+množina imenice *der Schuss*
+**** odgovor
+die Schüsse
+*** i4								      :drill:
+    SCHEDULED: <2018-04-15 Sun>
+    :PROPERTIES:
+    :ID:       28d211e1-dcea-4b9d-a7f5-edfed09b4e8e
+    :DRILL_LAST_INTERVAL: 25.8026
+    :DRILL_REPEATS_SINCE_FAIL: 4
+    :DRILL_TOTAL_REPEATS: 3
+    :DRILL_FAILURE_COUNT: 0
+    :DRILL_AVERAGE_QUALITY: 4.0
+    :DRILL_EASE: 2.46
+    :DRILL_LAST_QUALITY: 4
+    :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:56]
+    :END:
+jednina i rod od *die Schüsse*
+**** odgovor
+der Schuss
+*** beschießen
+**** gz1							      :drill:
+     SCHEDULED: <2018-06-01 Fri>
+     :PROPERTIES:
+     :ID:       a1eed2de-69d3-474d-b455-d5ced99a1f30
+     :DRILL_LAST_INTERVAL: 52.2785
+     :DRILL_REPEATS_SINCE_FAIL: 5
+     :DRILL_TOTAL_REPEATS: 4
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.5
+     :DRILL_EASE: 2.22
+     :DRILL_LAST_QUALITY: 3
+     :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:09]
+     :END:
+pucati na nekog ili nešto, bombardirati nekog ili nešto
+- ne ovisi o vrsti oružja, može se koristiti sa svakim vatrenim
+  oružjem
+***** odgovor
+beschießen
+**** gz2							      :drill:
+     SCHEDULED: <2018-05-30 Wed>
+     :PROPERTIES:
+     :ID:       f8bb3290-fdfc-44e3-8029-5842ecb5d24c
+     :DRILL_LAST_INTERVAL: 49.8078
+     :DRILL_REPEATS_SINCE_FAIL: 5
+     :DRILL_TOTAL_REPEATS: 4
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 3.75
+     :DRILL_EASE: 2.32
+     :DRILL_LAST_QUALITY: 5
+     :DRILL_LAST_REVIEWED: [2018-04-10 Tue 10:07]
+     :END:
+ *beschießen*
+***** odgovor
+pucati na nekog ili nešto, bombardirati nekog ili nešto
+- ne ovisi o vrsti oružja, može se koristiti sa svakim vatrenim
+  oružjem
+**** gz1							      :drill:
+     SCHEDULED: <2018-04-14 Sat>
+     :PROPERTIES:
+     :ID:       5fd44067-1025-4330-a93d-94ceba0b2228
+     :DRILL_LAST_INTERVAL: 25.0
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 4.0
+     :DRILL_EASE: 2.5
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:56]
+     :END:
+ 3.l.jd präsens, 1.l.jd präteritum, 3.l.jd perfekt od *beschießen*
+***** o
+ - er beschießt
+ - ich beschoss
+ - er hat beschossen
+*** erschießen
+**** gz1							      :drill:
+     SCHEDULED: <2018-06-08 Fri>
+     :PROPERTIES:
+     :ID:       977bbd6f-558e-4e97-b598-64e6793d28b2
+     :DRILL_LAST_INTERVAL: 58.0033
+     :DRILL_REPEATS_SINCE_FAIL: 5
+     :DRILL_TOTAL_REPEATS: 4
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 4.0
+     :DRILL_EASE: 2.46
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-04-11 Wed 10:28]
+     :END:
+upucati, ustrijeliti (to shoot dead)
+- "jmdn. durch einen Schuss töten"
+***** odgovor
+erschießen
+**** gz2							      :drill:
+     SCHEDULED: <2018-04-15 Sun>
+     :PROPERTIES:
+     :ID:       4d289184-9da2-4d65-862c-98334017dab6
+     :DRILL_LAST_INTERVAL: 25.0
+     :DRILL_REPEATS_SINCE_FAIL: 4
+     :DRILL_TOTAL_REPEATS: 3
+     :DRILL_FAILURE_COUNT: 0
+     :DRILL_AVERAGE_QUALITY: 4.0
+     :DRILL_EASE: 2.5
+     :DRILL_LAST_QUALITY: 4
+     :DRILL_LAST_REVIEWED: [2018-03-21 Wed 08:25]
+     :END:
+ *erschießen*
+***** odgovor
+upucati, usrijeliti (to shoot sb dead)
+- "jmdn. durch einen Schuss töten"
