@@ -106,7 +106,7 @@ def is_drill_header(line):
 
 
 # like Flashcard but without FRONT, BACK
-Properties = namedtuple('Properties',('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
+Properties = namedtuple('Properties', ('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
                                        'DRILL_REPEATS_SINCE_FAIL',
                                        'DRILL_TOTAL_REPEATS',
                                        'DRILL_FAILURE_COUNT',
@@ -114,7 +114,7 @@ Properties = namedtuple('Properties',('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
                                        'DRILL_EASE',
                                        'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED'))
 
-Flashcard = namedtuple("Flashcard", ('FRONT', 'BACK') + Properties._fields)
+Flashcard = namedtuple("Flashcard", ('FRONT', 'BACK', 'PWCEntry') + Properties._fields)
 
 # # TODO WHAT ABOUT PWCE_ID?
 # Flashcard = namedtuple("Flashcard", ['SCHEDULED', 'ID', 'FRONT',
@@ -140,8 +140,11 @@ def extract_properties(filewrp):
         if line == ":PROPERTIES:":
             continue
         elif line == ":END:":
-            return Properties(scheduled, id, dli, drsf, dtr, dfc, daq,
+            try:
+                return Properties(scheduled, id, dli, drsf, dtr, dfc, daq,
                               de, dlq, dlr)
+            except NameError:
+                raise OrgLineFormatError("A property that should have been defined wasn't defined.")
         elif line == '':
             continue
         elif line.startswith("SCHEDULED:"):
@@ -153,7 +156,9 @@ def extract_properties(filewrp):
             continue
 
         m = lineformat_re.match(line)
-        # TODO add checking if match is None? raises OrgLineFormatError
+        if not m:
+            raise OrgLineFormatError("Line doesn't contain org-mode property.")
+
         name = m.group(1)
         value = m.group(2).strip()
 
@@ -176,11 +181,10 @@ def extract_properties(filewrp):
         elif name == "DRILL_LAST_REVIEWED":
             dlr = value
         else:
-            # TODO ADD FOR PROPERTY :PWCE_ID: ?
             raise OrgLineFormatError(filewrp, "Unexpected property " + name)
 
 
-def extract_flashcard(filewrp):
+def extract_flashcard(filewrp, pwce_name):
     """'filewrp' is a FileWrapper object around a file in read mode.
     Returns a Flashcard object instance.
 
@@ -203,6 +207,7 @@ def extract_flashcard(filewrp):
                           ID=properties.ID,
                           FRONT="".join(front).strip(),
                           BACK="".join(back).strip(),
+                          PWCEntry=pwce_name,
                           DRILL_LAST_INTERVAL=properties.DRILL_LAST_INTERVAL,
                           DRILL_REPEATS_SINCE_FAIL=properties.DRILL_REPEATS_SINCE_FAIL,
                           DRILL_TOTAL_REPEATS=properties.DRILL_TOTAL_REPEATS,
@@ -254,16 +259,15 @@ def read_flashcards_from_file(filewrp):
         try:
             line = filewrp.getcurrentline()
             if is_drill_header(line):
-                flashcard = extract_flashcard(filewrp)
                 if pwce_name is None:
                     raise OrgLineFormatError(filewrp,
                                              "pwce_name is None but should"
-                                             " have been set. Skipping flashcard "
-                                             + str(flashcard))
-                try:
+                                             " have been set. Skipping flashcard")
+                flashcard = extract_flashcard(filewrp, pwce_name)
+                if fc_dict.get(pwce_name) is None:
+                    fc_dict[pwce_name] = flashcard
+                else:
                     fc_dict[pwce_name].append(flashcard)
-                except (KeyError, AttributeError):
-                    fc_dict[pwce_name] = [flashcard]
             elif is_org_header(line):
                 pwce_name = extract_pwce_name(line)
                 filewrp.readline()
@@ -290,6 +294,7 @@ def read_flashcards_from_file(filewrp):
 
 
 def __main__():
+    # TODO docstring za __main__()
     readfile_name = "C:/Users/juras/PycharmProjects/elkoi_py/worte_excerpt.org"
     writefile_name = "C:/Users/juras/PycharmProjects/elkoi_py/parsed-worte_excerpt.org"
 

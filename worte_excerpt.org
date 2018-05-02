@@ -1,5 +1,8 @@
 * mix
+
 ** der Betrug
+
+
 *** i1								      :drill:
     SCHEDULED: <2018-04-13 Fri>
     :PROPERTIES:
@@ -13,8 +16,11 @@
     :DRILL_LAST_QUALITY: 3
     :DRILL_LAST_REVIEWED: [2018-03-20 Tue 08:51]
     :END:
+
 prevara, obmana
+
 **** odgovor
+
 der Betrug
 *** i2								      :drill:
     SCHEDULED: <2018-05-28 Mon>
