@@ -32,15 +32,6 @@ class FileWrapper:
     def getlinecounter(self):
         return self._linecounter
 
-    def getcurrentline(self):
-        """Gets _currentline, but also checks if EOF has been reached,
-        and if so, OrgEOFError is raised.
-
-        """
-        if self._currentline == '':
-            raise OrgEOFError
-        return self._currentline
-
     def __enter__(self):
         return self
 
@@ -67,7 +58,7 @@ class OrgLineFormatError(Exception):
 
         """
         self.linecounter = filewrp.getlinecounter()
-        self.currentline = filewrp.getcurrentline()
+        self.currentline = filewrp._currentline
         self.message = message
 
 
@@ -115,16 +106,6 @@ Properties = namedtuple('Properties', ('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
                                        'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED'))
 
 Flashcard = namedtuple("Flashcard", ('FRONT', 'BACK', 'PWCEntry') + Properties._fields)
-
-# # TODO WHAT ABOUT PWCE_ID?
-# Flashcard = namedtuple("Flashcard", ['SCHEDULED', 'ID', 'FRONT',
-#                                      'BACK', 'DRILL_LAST_INTERVAL',
-#                                      'DRILL_REPEATS_SINCE_FAIL',
-#                                      'DRILL_TOTAL_REPEATS',
-#                                      'DRILL_FAILURE_COUNT',
-#                                      'DRILL_AVERAGE_QUALITY',
-#                                      'DRILL_EASE',
-#                                      'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED'])
 
 
 def extract_properties(filewrp):
@@ -252,12 +233,11 @@ def read_flashcards_from_file(filewrp):
     Flashcard objects for them.
 
     """
-    filewrp.readline()
     fc_dict = {}
     pwce_name = None
     while True:
         try:
-            line = filewrp.getcurrentline()
+            line = filewrp.readline()
             if is_drill_header(line):
                 if pwce_name is None:
                     raise OrgLineFormatError(filewrp,
@@ -265,7 +245,7 @@ def read_flashcards_from_file(filewrp):
                                              " have been set. Skipping flashcard")
                 flashcard = extract_flashcard(filewrp, pwce_name)
                 if fc_dict.get(pwce_name) is None:
-                    fc_dict[pwce_name] = flashcard
+                    fc_dict[pwce_name] = [flashcard]
                 else:
                     fc_dict[pwce_name].append(flashcard)
             elif is_org_header(line):
