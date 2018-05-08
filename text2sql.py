@@ -1,7 +1,7 @@
 import sys
-import sqlite3
 import doctest
 from collections import namedtuple
+from sqlite3 import Connection
 from re import compile, match
 
 
@@ -16,6 +16,11 @@ class FileWrapper:
         self.file = file
         self._linecounter = 0
         self._currentline = None
+        self.return_current_line = False
+        # This is to be used in functions that read ahead of what they are supposed
+        # to, in order to find the terminator of the text they are to work with.
+        # In order for other functions to work normally, those read-ahead functions must
+        # notify FileWrapper to "go back" one line.
 
     def readline(self):
         """While reading a new line, it updates _linecounter and _currentline,
@@ -23,6 +28,9 @@ class FileWrapper:
         is raised.
 
         """
+        if self.return_current_line and (self._currentline is not None):
+            self.return_current_line = False
+            return self._currentline
         self._currentline = self.file.readline()
         if self._currentline == '':
             raise OrgEOFError
@@ -105,16 +113,15 @@ Properties = namedtuple('Properties', ('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
                                        'DRILL_EASE',
                                        'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED'))
 
-Flashcard = namedtuple("Flashcard", ('FRONT', 'BACK', 'PWCEntry') + Properties._fields)
+Flashcard = namedtuple("Flashcard", ('FRONT', 'BACK', 'PWCENTRY') + Properties._fields)
 
 
 def extract_properties(filewrp):
-    """Returns a Properties object from properties of a drill item,
-    as read from the file.
-
     """
-    # TAG_CHARS = "\\w\\.\\[\\]:-"
-    # lineformat_re = compile(":(\\w+):\\s+([" +TAG_CHARS+ "]+)")
+    :param filewrp: a FileWrapper object around a file in read mode.
+    :return: Properties object instance from which a Flashcard object instance
+            can be created.
+    """
     lineformat_re = compile(":(\\w+):([\\w\\s.\\[\\]:-]+)")
     while True:
         line = filewrp.readline().strip()
@@ -146,19 +153,19 @@ def extract_properties(filewrp):
         if name == "ID":
             id = value
         elif name == "DRILL_LAST_INTERVAL":
-            dli = value
+            dli = float(value)
         elif name == "DRILL_REPEATS_SINCE_FAIL":
-            drsf = value
+            drsf = int(value)
         elif name == "DRILL_TOTAL_REPEATS":
-            dtr = value
+            dtr = int(value)
         elif name == "DRILL_FAILURE_COUNT":
-            dfc = value
+            dfc = int(value)
         elif name == "DRILL_AVERAGE_QUALITY":
-            daq = value
+            daq = float(value)
         elif name == "DRILL_EASE":
-            de = value
+            de = float(value)
         elif name == "DRILL_LAST_QUALITY":
-            dlq = value
+            dlq = int(value)
         elif name == "DRILL_LAST_REVIEWED":
             dlr = value
         else:
@@ -166,9 +173,10 @@ def extract_properties(filewrp):
 
 
 def extract_flashcard(filewrp, pwce_name):
-    """'filewrp' is a FileWrapper object around a file in read mode.
-    Returns a Flashcard object instance.
-
+    """
+    :param filewrp: a FileWrapper object around a file in read mode.
+    :param pwce_name: PWCEntry name for current flashcards
+    :return: a Flashcard object instance.
     """
     front = []
     back = []
@@ -182,13 +190,15 @@ def extract_flashcard(filewrp, pwce_name):
         back.append(line)
         try:
             line = filewrp.readline()
-        except OrgEOFError: # EOF is expected in this function
+        except OrgEOFError:  # EOF is expected in this function
             break
+    else:
+        filewrp.return_current_line = True
     flashcard = Flashcard(SCHEDULED=properties.SCHEDULED,
                           ID=properties.ID,
                           FRONT="".join(front).strip(),
                           BACK="".join(back).strip(),
-                          PWCEntry=pwce_name,
+                          PWCENTRY=pwce_name,
                           DRILL_LAST_INTERVAL=properties.DRILL_LAST_INTERVAL,
                           DRILL_REPEATS_SINCE_FAIL=properties.DRILL_REPEATS_SINCE_FAIL,
                           DRILL_TOTAL_REPEATS=properties.DRILL_TOTAL_REPEATS,
@@ -215,87 +225,90 @@ def extract_pwce_name(line):
     return pwce_name
 
 
-def print_flashcards(fc_dict, w_file):
-    """fc_dict is a dictionary of (pwce,list of flashcard) pairs; this
-    function prints it to w_file.
-
+def insert_flashcard_into_db(flashcard: Flashcard, db_connection: Connection):
     """
-    for pwce, flashcards in fc_dict.items():
-        w_file.write(pwce.ljust(20)+"\n")
-        for flashcard in flashcards:
-            for field in flashcard._fields:
-                w_file.write(20*" " + field.ljust(20) + "=" +
-                             str(getattr(flashcard, field)) + "\n")
-
-
-def read_flashcards_from_file(filewrp):
-    """Reads all flashcards in the FileWrapper filewrp and creates fitting
-    Flashcard objects for them.
-
+    Inserts a single flashcard into the database.
+    :param flashcard: Flashcard object instance
+    :param db_connection: sqlite3.Connection object instance, a database
     """
-    fc_dict = {}
+    sql = """INSERT INTO flashcards VALUES (
+             :ID, :PWCENTRY, :FRONT, :BACK, :SCHEDULED, :DRILL_LAST_INTERVAL,
+             :DRILL_REPEATS_SINCE_FAIL, :DRILL_TOTAL_REPEATS,
+             :DRILL_FAILURE_COUNT, :DRILL_AVERAGE_QUALITY,
+             :DRILL_EASE, :DRILL_LAST_QUALITY, :DRILL_LAST_REVIEWED
+          );"""
+
+    db_connection.execute(sql, flashcard._asdict())
+
+
+def read_and_save_flashcards(filewrp, db_connection):
+    """Reads an org-mode file and parses Flashcard objects from org-drill style
+    flashcards, and writes it to a database in parallel.
+    :param filewrp: FileWrapper over file from which Flashcard instances are parsed
+    :param db_connection: sqlite3.Connection instance to the database for storing flashcards
+    """
     pwce_name = None
     while True:
         try:
-            line = filewrp.readline()
+            line = filewrp.readline()  # Raises ORGEOFError when file is finished
             if is_drill_header(line):
                 if pwce_name is None:
                     raise OrgLineFormatError(filewrp,
                                              "pwce_name is None but should"
                                              " have been set. Skipping flashcard")
                 flashcard = extract_flashcard(filewrp, pwce_name)
-                if fc_dict.get(pwce_name) is None:
-                    fc_dict[pwce_name] = [flashcard]
-                else:
-                    fc_dict[pwce_name].append(flashcard)
+                insert_flashcard_into_db(flashcard, db_connection)
             elif is_org_header(line):
                 pwce_name = extract_pwce_name(line)
-                filewrp.readline()
-            # TODO Sto ako je line nesto drugo ? ovo je beskonacna petlja ako je empty line prvi
-            # takodjer, ako se dogodio ORGLineFormatError, onda ce se ovdje ucitavati usred
-            # nepravilne kartice, i treba se doci do iduce
-            # suggestion:
-            # elif line == '' or line.startswith('#'):
-            #     filewrp.readline()
-            #     continue
-            # else:
-            #     # ovdje dodaj jos citanje ? (ali kad?)
-            #     raise OrgLineFormatError(filewrp, "Unrecognized line format")
+                # filewrp.readline()
+            else:
+                # Empty line, a comment, or an error happened in the middle of parsing
+                # a flashcard.  So now go forward until the next org header is all.
+                continue
         except OrgLineFormatError as exc:
             # TODO DO BETTER LOGGING
             sys.stderr.write("OrgLineFormatError at line",
                              str(exc.linecounter),
                              ": '", exc.message, "'. line = '",
                              exc.currentline, "'\n")
-            # TODO dodaj readline ovdje
         except OrgEOFError:
             break
-    return fc_dict
+    db_connection.commit()
 
 
 def __main__():
-    # TODO docstring za __main__()
+    """
+    Reads an org-mode file containing org-drill flashcards, creates Flashcard
+    object instances and prints them to screen.
+    :return:
+    """
+
     readfile_name = "C:/Users/juras/PycharmProjects/elkoi_py/worte_excerpt.org"
-    writefile_name = "C:/Users/juras/PycharmProjects/elkoi_py/parsed-worte_excerpt.org"
+    # writefile_name = "C:/Users/juras/PycharmProjects/elkoi_py/parsed-worte_excerpt.org"
+    database_name = "C:/Users/juras/elkoi/db/test.db"
 
     if len(sys.argv) == 2 or len(sys.argv) > 3:
         sys.exit("This script expects names of 2 files -- one for reading"
-                 " org-drill flashcards and one for writing processed flashcards." # TODO writing file will have different purpse
-                 " Expected format: 'script-name read-file-name write-file-name'."
+                 " org-drill flashcards and one for the flashcards database." 
+                 # TODO writing file will have different purpse
+                 " Expected format: 'script-name read-file-name database-name'."
                  " To use default files, pass 0 arguments.  To use default value"
                  " for only one file, write '-' on place of that file's name.")
     if len(sys.argv) == 3:
         if sys.argv[1] != '-':
             readfile_name = sys.argv[1]
         if sys.argv[2] != '-':
-            writefile_name = sys.argv[2]
-    with FileWrapper(open(readfile_name, 'r', encoding="utf-8")) as filewrp:
-        fc_dict = read_flashcards_from_file(filewrp)
-        # TODO also write the flashcards to database (sys.argv[2], in parallel)
+            database_name = sys.argv[2]
+    # with FileWrapper(open(readfile_name, 'r', encoding="utf-8")) as filewrp:
+    #     db_connection = Connection(database_name)
+    #     read_and_save_flashcards(filewrp, db_connection)
 
-    with open(writefile_name, 'w', encoding="utf-8") as file_w:
-        print_flashcards(fc_dict, file_w)
+    filewrp = FileWrapper(open(readfile_name, 'r', encoding="utf-8"))
+    db_connection = Connection(database_name)
+    read_and_save_flashcards(filewrp, db_connection)
 
 
 if __name__ == "__main__":
     __main__()
+
+# TODO update docstrings if you did any changes
