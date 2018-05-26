@@ -1,11 +1,14 @@
+import shared
 import sys
-from re import compile, match
+from re import compile
 from collections import deque
-from abc import ABC, abstractmethod
-from datetime import datetime
+from abc import ABC
+import configparser
+import logging
+import datetime
 
 
-class ReadFileWrapper:
+class OrgItemIterator:
     """A wrapper class around the file that is being read from.
 
     This wrapper is an iterable and an iterator over items within the file.
@@ -38,7 +41,7 @@ class ReadFileWrapper:
         all the lines that belong to an item (within a deque) and wraps them up
         in a string and returns them.
 
-        :return: string -- the clines that compose the current org-mode item in file
+        :return: string -- the lines that compose the current org-mode item in file
         """
 
         self._current_item.insert(0, self._current_item_first_line)
@@ -72,70 +75,25 @@ class ReadFileWrapper:
                     continue
                 elif line.isspace():
                     continue
-                else:
+                else:   # a part of file is reached that has another purpose than listing items
                     raise StopIteration
         except StopIteration:
             self._end_reached = True
             return self._wnr_current_item('')
 
-        # while not self._end_reached:
-        #     try:
-        #         line = self._readline()
-        #     except StopIteration:
-        #         self._end_reached = True
-        #         return self._wnr_current_item('')
-        #
-        #     if line.startswith("- "):
-        #         if self._current_item_first_line is None:
-        #             self._current_item_first_line = line
-        #             continue
-        #         else:
-        #             return self._wnr_current_item(line)
-        #     elif line.startswith("  "):
-        #         self._current_item.append(line)
-        #     elif line.startswith("#"):
-        #         continue
-        #     elif line.isspace():
-        #         continue
-        #     else:
-        #         self._end_reached = True
-        #         raise StopIteration
-        #
-        # if self._end_reached:
-        #     raise StopIteration
-
-        # self._current_item = deque()
-        # try:
-        #     while not self._end_reached:
-        #         line = self._readline()
-        #         if line.startswith("- "):
-        #             if self._current_item_first_line is None:
-        #                 self._current_item_first_line = line
-        #                 continue
-        #             else:
-        #                 return self._wnr_current_item(line)
-        #         elif line.startswith("  "):
-        #             self._current_item.append(line)
-        #         elif line.startswith("#"):
-        #             continue
-        #         elif line.isspace():
-        #             continue
-        #         else:
-        #             raise StopIteration
-        # except StopIteration:
-        #     if self._end_reached:
-        #         raise
-        #     else:
-        #         self._end_reached = True
-        #         return self._wnr_current_item('')
-        # if self._end_reached:
-        #     raise StopIteration
-
     def __enter__(self):
         return self
 
-    def __exit__(self, *args):
-        return self._file.__exit__(*args)
+    def __exit__(self, e_type, e_val, e_tbk):
+        if e_type is not None:
+            self._file.__exit__(e_type, e_val, e_tbk)
+            logging.critical("Error occured while reading file " + self._file.name
+                             + ". Error type, value, traceback: ("
+                             + str(e_type) + ", " + str(e_val)
+                             + ", " + str(e_tbk) + ").")
+            sys.exit(1)
+        else:
+            self._file.__exit__(e_type, e_val, e_tbk)
 
 
 class ItemFormatError(Exception):
@@ -166,10 +124,6 @@ class ParseResult(ABC):
     BACKSIDE_DEPTH = 4
     FILL_TO_TAG = 30
 
-    # TODO add __init__() that calls _set_header instead of calling it from subclasses?
-    # _set_header() initializes flashcard_lines which doesn't belong in this method,
-    # or rather it should belong in __init__()
-
     def _set_header(self, header):
         """
         This should be called before first call of _add_card method from within
@@ -192,10 +146,6 @@ class ParseResult(ABC):
         self.flashcard_lines.append(question + "\n")
         self.flashcard_lines.append(self.BACKSIDE_DEPTH * "*" + " " + aheader + "\n")
         self.flashcard_lines.append(answer + "\n")
-
-    @abstractmethod
-    def _create_flashcards(*args):
-        pass
 
 
 class SimplePair(ParseResult):
@@ -259,17 +209,6 @@ class SimplePair(ParseResult):
 
         tag_regex = compile("(<[" + tag_chars + "]+>)")
 
-        # def helper_extract_tags(start_i, end_i):
-        #     tag_contents = ""
-        #     tag_match = tag_regex.search(text, start_i, end_i)
-        #     while tag_match is not None:
-        #         raw_tag_text = tag_match.group(0)
-        #         tag_text = raw_tag_text[1:(len(raw_tag_text)-1)]
-        #         tag_contents += tag_text
-        #         start_i = tag_match.end()
-        #         tag_match = tag_regex.search(text, start_i, end_i)
-        #     return tag_contents
-
         tag_match = tag_regex.search(question_text)
         while tag_match is not None:
             raw_tag_text = tag_match.group(0)
@@ -277,11 +216,6 @@ class SimplePair(ParseResult):
             question_text = question_text.replace(raw_tag_text, tag_text)
             tag_match = tag_regex.search(question_text)
         return question_text, answer_text
-
-        # extract tags in front
-        # front_tags = helper_extract_tags(0, text_match.start(2))
-        # back_tags = helper_extract_tags(text_match.end(2), len(text))
-        # return front_tags + tagless_text + back_tags, answer_text
 
     def _create_flashcards(self, item):
         self.flashcard_lines = deque()  # TODO ovo makni? (postavlja se u _set_header)
@@ -318,7 +252,7 @@ class OldNoun(ParseResult):
     def _create_flashcards(self, noun_dict):
         """Creates flashcards from the singular, translation and plural of a
         noun.
-        
+
         :param: noun_dict is a dictionary with keys singular, plural (optional) and
         translation.  Output is a list of strings to be directly printed
         to an org file and used with org-drill as flashcards.
@@ -352,7 +286,7 @@ class NewNoun(ParseResult):
     def _create_flashcards(self, noun_dict):
         """Creates flashcards from the singular, translation and plural of a
         noun.
-        
+
         Arg is a dictionary with keys singular, plural (optional) and
         translation.  Output is a list of strings to be directly printed
         to an org file and used with org-drill as flashcards.  Hence a
@@ -385,13 +319,16 @@ def fill_paragraph(paragraph, max_width=79):
     """
     line = ''
     lines = []
+    spaces_per_line = 1
     for word in paragraph.split():
         if len(line) != 0:
-            if len(line) + 1 + len(word) > max_width:
+            if len(line) + spaces_per_line + len(word) > max_width:
                 lines.append(line + "\n")
                 line = word
+                spaces_per_line = 1
             else:
                 line += ' ' + word
+                spaces_per_line += 1
         else:
             line = word
     if not lines:
@@ -466,47 +403,59 @@ def parse_item(item):
     # TODO other formats
 
 
+def read_configuration():
+    """:return: a 2-tuple, (path of org-file to read from, path of org-file to write to)"""
+    config_parser = configparser.ConfigParser()
+    if not config_parser.read('config'):
+        logging.critical("Can't find configuration file.  Quitting.")
+        sys.exit(1)
+
+    try:
+        path_dict = config_parser['file_paths']
+        f_read_name = path_dict['orgfile_newwords_path']
+        f_write_name = path_dict['orgfile_newflashcards_path']
+    except KeyError as e:
+        logging.critical("Missing a config property.  KeyError was raised on " + str(e.args))
+        sys.exit(1)
+    return f_read_name, f_write_name
+
+
 def __main__():
-    """Parses 'german phrase'-translation pairs from the passed file
-    (argument1), creates from them flashcards usable with org-drill in
-    emacs org-mode and writes them into the other passed file
-    (argument2).
+    """Parses 'german phrase'-translation pairs from an org-mode file,
+    from these pairs flashcards usable with org-drill in
+    emacs org-mode are created and writen into another org-mode file.
 
     """
-    # these are default names, but they can be overridden by user input
-    f_read_name = "C:/Users/juras/orgtd/newwords.org"
-    f_write_name = "C:/Users/juras/orgtd/newflashcards.org"
 
-    if len(sys.argv) == 2 or len(sys.argv) > 3:
-        sys.exit("This script expects names of 2 files -- one for reading"
-                 " unprocessed words and one for writing processed flashcards."
-                 " Expected format: 'script-name read-file-name write-file-name'."
-                 " To use default files, pass 0 arguments.  To use default value"
-                 " for only one file, write '-' on place of that file's name.")
-    if len(sys.argv) == 3:
-        if sys.argv[1] != '-':
-            f_read_name = sys.argv[1]
-        if sys.argv[2] != '-':
-            f_write_name = sys.argv[2]
+    with shared.logging_context():
+        (f_read_name, f_write_name) = read_configuration()
+        flashcards_counter = 0
 
-    with ReadFileWrapper(open(f_read_name, 'r', encoding="utf-8")) as fwrap:
-        flashcards = deque()
-        for item in fwrap:
-            try:
-                flashcards.extend(parse_item(item).flashcard_lines)
-            except ItemFormatError as ex:
-                # TODO BETTER LOGGING
-                sys.stderr.write("Bad item format around line "
-                                 + str(fwrap.line_counter)
-                                 + ", message = "
-                                 + ex.message
-                                 + "\n")
+        with OrgItemIterator(open(f_read_name, 'r', encoding="utf-8")) as item_iter:
+            flashcards = deque()
+            for item in item_iter:
+                try:
+                    flashcards.extend(parse_item(item).flashcard_lines)
+                    flashcards_counter += 1
+                except ItemFormatError as ex:
+                    logging.error("Bad item format around line "
+                                  + str(item_iter.line_counter)
+                                  + ", message = "
+                                  + ex.message)
 
-    with open(f_write_name, 'a', encoding="utf-8") as f_write:
-        # first line is header for file
-        flashcards.insert(0, "* flashcards " + str(datetime.now()) + "\n")
-        for entry in flashcards:
-            f_write.write(entry)
+        try:
+            f_write = open(f_write_name, 'a', encoding="utf-8")
+            # first line is header for file
+            flashcards.insert(0, "* flashcards " + str(datetime.datetime.now()) + "\n")
+            for entry in flashcards:
+                f_write.write(entry)
+        except IOError:
+            logging.critical("Error occured while writing to file " + f_write_name
+                             + ". Exception info: ", exc_info=True)
+            sys.exit(1)
+
+        logging.info("Successfully finished.  Parsed " + str(flashcards_counter)
+                     + " flashcards.")
 
 
 if __name__ == '__main__':

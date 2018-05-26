@@ -1,7 +1,10 @@
+import shared
 import sys
 import doctest
 from collections import namedtuple
-from sqlite3 import Connection
+import configparser
+import logging
+import sqlite3
 from re import compile, match
 
 
@@ -17,7 +20,7 @@ class FileWrapper:
         self._linecounter = 0
         self._currentline = None
         self.return_current_line = False
-        # This is to be used in functions that read ahead of what they are supposed
+        # return_current_line is to be used in functions that read ahead of what they are supposed
         # to, in order to find the terminator of the text they are to work with.
         # In order for other functions to work normally, those read-ahead functions must
         # notify FileWrapper to "go back" one line.
@@ -25,8 +28,10 @@ class FileWrapper:
     def readline(self):
         """While reading a new line, it updates _linecounter and _currentline,
         and also checks if EOF has been reached, in which case OrgEOFError
-        is raised.
-
+        is raised.  Some functions will read one line forward from what they're supposed
+        to process (in order to determine stopping conditions), in which case
+        they must set self.return_current_line to True so that
+        the next call to self.readline() gets the correct line.
         """
         if self.return_current_line and (self._currentline is not None):
             self.return_current_line = False
@@ -44,7 +49,13 @@ class FileWrapper:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        return self
+        if exc_type is None:
+            return self.file.__exit__(exc_type, exc_val, exc_tb)
+        else:
+            logging.critical("Error occured while reading file " + self.file.name,
+                             exc_info=True)
+            self.file.__exit__(exc_type, exc_val, exc_tb)
+            sys.exit(1)
 
 
 class OrgEOFError(Exception):
@@ -104,7 +115,20 @@ def is_drill_header(line):
         return False
 
 
-# like Flashcard but without FRONT, BACK
+# NOTE: The difference between this tuple and a row in table FLASHCARDS_TABLE_NAME
+# is 'PWCENTRY'. Here it's PWCENTRY, there it's PWCE_ID
+# The order of the elements of this tuple is the same as attributes in table FLASHCARDS_TABLE_NAME
+Flashcard = namedtuple("Flashcard", ('ID', 'SCHEDULED', 'FRONT', 'BACK', 'DRILL_LAST_INTERVAL',
+                                     'DRILL_REPEATS_SINCE_FAIL',
+                                     'DRILL_TOTAL_REPEATS',
+                                     'DRILL_FAILURE_COUNT',
+                                     'DRILL_AVERAGE_QUALITY',
+                                     'DRILL_EASE',
+                                     'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED',
+                                     'PWCENTRY'))
+
+# # like Flashcard but without FRONT, BACK
+# the order of the elements of this tuple is the same as the properties in an org-mode file
 Properties = namedtuple('Properties', ('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
                                        'DRILL_REPEATS_SINCE_FAIL',
                                        'DRILL_TOTAL_REPEATS',
@@ -113,11 +137,12 @@ Properties = namedtuple('Properties', ('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
                                        'DRILL_EASE',
                                        'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED'))
 
-Flashcard = namedtuple("Flashcard", ('FRONT', 'BACK', 'PWCENTRY') + Properties._fields)
-
 
 def extract_properties(filewrp):
     """
+    Given a FileWrapper object instances, reads lines from it that contain
+    org-mode PROPERTIES (that are used in org-drill) and also the value of
+    SCHEDULED in org-mode.  Creates and returns a Properties object instance.
     :param filewrp: a FileWrapper object around a file in read mode.
     :return: Properties object instance from which a Flashcard object instance
             can be created.
@@ -132,7 +157,8 @@ def extract_properties(filewrp):
                 return Properties(scheduled, id, dli, drsf, dtr, dfc, daq,
                               de, dlq, dlr)
             except NameError:
-                raise OrgLineFormatError("A property that should have been defined wasn't defined.")
+                raise OrgLineFormatError(filewrp, "A property that should "
+                                                  "have been defined wasn't defined.")
         elif line == '':
             continue
         elif line.startswith("SCHEDULED:"):
@@ -145,7 +171,7 @@ def extract_properties(filewrp):
 
         m = lineformat_re.match(line)
         if not m:
-            raise OrgLineFormatError("Line doesn't contain org-mode property.")
+            raise OrgLineFormatError(filewrp, "Line doesn't contain org-mode property.")
 
         name = m.group(1)
         value = m.group(2).strip()
@@ -174,6 +200,9 @@ def extract_properties(filewrp):
 
 def extract_flashcard(filewrp, pwce_name):
     """
+    Given the FileWrapper object instance, reads lines from it that pertain
+    to an org-drill item (a flashcard) and from this, a Flashcard object instance
+    is created.
     :param filewrp: a FileWrapper object around a file in read mode.
     :param pwce_name: PWCEntry name for current flashcards
     :return: a Flashcard object instance.
@@ -225,20 +254,65 @@ def extract_pwce_name(line):
     return pwce_name
 
 
-def insert_flashcard_into_db(flashcard: Flashcard, db_connection: Connection):
+def insert_pwce_name_into_db(pwce_name, db_connection):
+    """
+    Inserts a pwce_name into table PWCENTRIES_TABLE_NAME (if it doesn't exist).
+    :return:
+    """
+    try:
+        db_connection.execute("INSERT INTO {0} (NAME) VALUES (?);".format(PWCENTRIES_TABLE_NAME),
+                              (pwce_name,))
+        db_connection.commit()
+    except sqlite3.IntegrityError:
+        pass
+        # this just means this pwcentry already exists in the database which is fine
+        # I don't want to use 'INSERT OR REPLACE' because that deltes the pwce_entry
+        # and so the data in the FLASHCARDS_TABLE_NAME database is lost too
+
+
+def insert_flashcard_into_db(flashcard: Flashcard, db_connection: sqlite3.Connection):
     """
     Inserts a single flashcard into the database.
     :param flashcard: Flashcard object instance
     :param db_connection: sqlite3.Connection object instance, a database
     """
-    sql = """INSERT INTO flashcards VALUES (
-             :ID, :PWCENTRY, :FRONT, :BACK, :SCHEDULED, :DRILL_LAST_INTERVAL,
-             :DRILL_REPEATS_SINCE_FAIL, :DRILL_TOTAL_REPEATS,
-             :DRILL_FAILURE_COUNT, :DRILL_AVERAGE_QUALITY,
-             :DRILL_EASE, :DRILL_LAST_QUALITY, :DRILL_LAST_REVIEWED
-          );"""
+    insert_pwce_name_into_db(flashcard.PWCENTRY, db_connection)
+    try:
+        pwce_id = db_connection.execute("select ID from {0} where name = ?;".format(
+                                        PWCENTRIES_TABLE_NAME),
+                                        (flashcard.PWCENTRY,)).fetchone()
+        pwce_id = pwce_id[0]
+    except (sqlite3.OperationalError, IndexError):
+        logging.warning("Error occurred while writing flashcard " + flashcard.ID
+                        + " to the database.", exc_info=True)
+        return
 
-    db_connection.execute(sql, flashcard._asdict())
+    try:
+        db_connection.execute("""
+            insert or replace into {0} (
+                 ID, SCHEDULED, FRONT, BACK,
+                 DRILL_LAST_INTERVAL, DRILL_REPEATS_SINCE_FAIL,
+                 DRILL_TOTAL_REPEATS, DRILL_FAILURE_COUNT,
+                 DRILL_AVERAGE_QUALITY, DRILL_EASE,
+                 DRILL_LAST_QUALITY, DRILL_LAST_REVIEWED,
+                 PWCE_ID
+            ) values (
+                ?, ?, ?, ?,
+                ?, ?,
+                ?, ?,
+                ?, ?,
+                ?, ?,
+                ?
+            );
+        """.format(FLASHCARDS_TABLE_NAME), flashcard._replace(PWCENTRY=pwce_id))
+        db_connection.commit()
+    except sqlite3.IntegrityError:
+        logging.warning("Error occured while writing flashcard " + flashcard.ID
+                        + " to the database.", exc_info=True)
+    except sqlite3.DatabaseError:
+        logging.critical("Error occured while writing flashcard " + flashcard.ID
+                         + " to the database. Quitting.", exc_info=True)
+        sys.exit(1)
 
 
 def read_and_save_flashcards(filewrp, db_connection):
@@ -246,8 +320,10 @@ def read_and_save_flashcards(filewrp, db_connection):
     flashcards, and writes it to a database in parallel.
     :param filewrp: FileWrapper over file from which Flashcard instances are parsed
     :param db_connection: sqlite3.Connection instance to the database for storing flashcards
+    :return: number of flashcards correctly parsed
     """
     pwce_name = None
+    flashcards_counter = 0
     while True:
         try:
             line = filewrp.readline()  # Raises ORGEOFError when file is finished
@@ -257,55 +333,114 @@ def read_and_save_flashcards(filewrp, db_connection):
                                              "pwce_name is None but should"
                                              " have been set. Skipping flashcard")
                 flashcard = extract_flashcard(filewrp, pwce_name)
+                flashcards_counter += 1
                 insert_flashcard_into_db(flashcard, db_connection)
             elif is_org_header(line):
                 pwce_name = extract_pwce_name(line)
                 # filewrp.readline()
             else:
                 # Empty line, a comment, or an error happened in the middle of parsing
-                # a flashcard.  So now go forward until the next org header is all.
+                # a flashcard.  So now go forward until the next org header.
                 continue
         except OrgLineFormatError as exc:
-            # TODO DO BETTER LOGGING
-            sys.stderr.write("OrgLineFormatError at line",
-                             str(exc.linecounter),
-                             ": '", exc.message, "'. line = '",
-                             exc.currentline, "'\n")
+            logging.warning("OrgLineFormatError at line" +
+                            str(exc.linecounter) +
+                            ": '" + exc.message + "'. line = '" +
+                            exc.currentline)
         except OrgEOFError:
             break
+    return flashcards_counter
+
+
+# saved as a constant because names of tables my change
+FLASHCARDS_TABLE_NAME = 'flashcards'
+PWCENTRIES_TABLE_NAME = 'pwcentries'
+
+
+def inspect_database(db_connection: sqlite3.Connection):
+    """Creates tables 'flashcards' and 'pwce_entries' if they don't exist.
+    Also serves as a reminder of the structure of those tables."""
+
+    db_connection.execute("""
+        create table if not exists {0} (
+            ID integer primary key,
+            NAME text unique not null
+        );
+    """.format(PWCENTRIES_TABLE_NAME))
+
+    db_connection.execute("""
+        create table if not exists {0} (
+            ID text primary key,
+            SCHEDULED text not null,
+            FRONT text not null,
+            BACK text not null,
+            DRILL_LAST_INTERVAL real not null,
+            DRILL_REPEATS_SINCE_FAIL integer not null,
+            DRILL_TOTAL_REPEATS integer not null,
+            DRILL_FAILURE_COUNT integer not null,
+            DRILL_AVERAGE_QUALITY real not null,
+            DRILL_EASE real not null,
+            DRILL_LAST_QUALITY integer not null,
+            DRILL_LAST_REVIEWED text not null,
+            PWCE_ID integer,
+            foreign key (PWCE_ID)
+              references {1} (ID)
+              on delete set null
+              on update cascade
+        );
+    """.format(FLASHCARDS_TABLE_NAME, PWCENTRIES_TABLE_NAME))
     db_connection.commit()
+
+
+def read_configuration():
+    """Reads paths to the orgfile and database file from a configuration file.
+    :return: a tuple (orfile_path, db_path)
+    """
+    config_parser = configparser.ConfigParser()
+    if not config_parser.read('config'):
+        logging.critical("Can't find configuration file. Quitting.")
+        sys.exit(1)
+
+    try:
+        section_dict = config_parser['file_paths']
+        db_path = section_dict['db_path']
+        orgfile_path = section_dict['orgfile_worte_read_path']
+    except KeyError as e:
+        logging.critical("Missing a config property.  KeyError was raised on " + str(e.args))
+        sys.exit(1)
+    return orgfile_path, db_path
 
 
 def __main__():
     """
     Reads an org-mode file containing org-drill flashcards, creates Flashcard
-    object instances and prints them to screen.
+    object instances and writes them into database.
     :return:
     """
 
-    readfile_name = "C:/Users/juras/PycharmProjects/elkoi_py/worte_excerpt.org"
-    # writefile_name = "C:/Users/juras/PycharmProjects/elkoi_py/parsed-worte_excerpt.org"
-    database_name = "C:/Users/juras/elkoi/db/test.db"
-
-    if len(sys.argv) == 2 or len(sys.argv) > 3:
-        sys.exit("This script expects names of 2 files -- one for reading"
-                 " org-drill flashcards and one for the flashcards database." 
-                 # TODO writing file will have different purpse
-                 " Expected format: 'script-name read-file-name database-name'."
-                 " To use default files, pass 0 arguments.  To use default value"
-                 " for only one file, write '-' on place of that file's name.")
-    if len(sys.argv) == 3:
-        if sys.argv[1] != '-':
-            readfile_name = sys.argv[1]
-        if sys.argv[2] != '-':
-            database_name = sys.argv[2]
-    # with FileWrapper(open(readfile_name, 'r', encoding="utf-8")) as filewrp:
-    #     db_connection = Connection(database_name)
-    #     read_and_save_flashcards(filewrp, db_connection)
-
-    filewrp = FileWrapper(open(readfile_name, 'r', encoding="utf-8"))
-    db_connection = Connection(database_name)
-    read_and_save_flashcards(filewrp, db_connection)
+    with shared.logging_context():
+        orgfile_path, db_path = read_configuration()
+        try:
+            filewrp = FileWrapper(open(orgfile_path, 'r', encoding="utf-8"))
+        except IOError as e:
+            logging.critical("An exception occured while opening file " + orgfile_path,
+                             exc_info=True)
+            sys.exit(1)
+        try:
+            db_connection = sqlite3.Connection(db_path)
+            inspect_database(db_connection)
+        except sqlite3.Error:
+            logging.critical("An exception occured while starting connection to database"
+                             " or creating one of the tables.",
+                             exc_info=True)
+            sys.exit(1)
+        # all db_connection.__exit__() does is commit() or rollback().
+        # I must close manually and exceptions are not suppressed (which is fine with me),
+        # it gets reported by logging __exit__()
+        with filewrp, db_connection:
+            flashcards_counter = read_and_save_flashcards(filewrp, db_connection)
+        db_connection.close()
+        logging.info("Succesfully parsed " + str(flashcards_counter) + "flashcards.")
 
 
 if __name__ == "__main__":
