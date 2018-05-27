@@ -456,6 +456,8 @@ def __main__():
 
         logging.info("Successfully finished.  Parsed " + str(flashcards_counter)
                      + " flashcards.")
+        print("Successfully parsed", flashcards_counter, "flashcards. Press RETURN to quit.")
+        input()
 
 
 if __name__ == '__main__':

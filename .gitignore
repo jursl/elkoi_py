@@ -1,4 +1,5 @@
 parsed-*.org
 *~
+__pycache__/
 config
 log

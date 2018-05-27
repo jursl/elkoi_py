@@ -1,11 +1,10 @@
 import shared
 import sys
-import doctest
-from collections import namedtuple
 import configparser
 import logging
 import sqlite3
 from re import compile, match
+from shared import Properties, Flashcard, FLASHCARDS_TABLE_NAME, PWCENTRIES_TABLE_NAME
 
 
 class FileWrapper:
@@ -113,29 +112,6 @@ def is_drill_header(line):
         return True
     else:
         return False
-
-
-# NOTE: The difference between this tuple and a row in table FLASHCARDS_TABLE_NAME
-# is 'PWCENTRY'. Here it's PWCENTRY, there it's PWCE_ID
-# The order of the elements of this tuple is the same as attributes in table FLASHCARDS_TABLE_NAME
-Flashcard = namedtuple("Flashcard", ('ID', 'SCHEDULED', 'FRONT', 'BACK', 'DRILL_LAST_INTERVAL',
-                                     'DRILL_REPEATS_SINCE_FAIL',
-                                     'DRILL_TOTAL_REPEATS',
-                                     'DRILL_FAILURE_COUNT',
-                                     'DRILL_AVERAGE_QUALITY',
-                                     'DRILL_EASE',
-                                     'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED',
-                                     'PWCENTRY'))
-
-# # like Flashcard but without FRONT, BACK
-# the order of the elements of this tuple is the same as the properties in an org-mode file
-Properties = namedtuple('Properties', ('SCHEDULED', 'ID', 'DRILL_LAST_INTERVAL',
-                                       'DRILL_REPEATS_SINCE_FAIL',
-                                       'DRILL_TOTAL_REPEATS',
-                                       'DRILL_FAILURE_COUNT',
-                                       'DRILL_AVERAGE_QUALITY',
-                                       'DRILL_EASE',
-                                       'DRILL_LAST_QUALITY', 'DRILL_LAST_REVIEWED'))
 
 
 def extract_properties(filewrp):
@@ -275,6 +251,7 @@ def insert_flashcard_into_db(flashcard: Flashcard, db_connection: sqlite3.Connec
     Inserts a single flashcard into the database.
     :param flashcard: Flashcard object instance
     :param db_connection: sqlite3.Connection object instance, a database
+    :return: True if flashcard was successfully added to the database, False otherwise
     """
     insert_pwce_name_into_db(flashcard.PWCENTRY, db_connection)
     try:
@@ -285,7 +262,7 @@ def insert_flashcard_into_db(flashcard: Flashcard, db_connection: sqlite3.Connec
     except (sqlite3.OperationalError, IndexError):
         logging.warning("Error occurred while writing flashcard " + flashcard.ID
                         + " to the database.", exc_info=True)
-        return
+        return False
 
     try:
         db_connection.execute("""
@@ -297,22 +274,25 @@ def insert_flashcard_into_db(flashcard: Flashcard, db_connection: sqlite3.Connec
                  DRILL_LAST_QUALITY, DRILL_LAST_REVIEWED,
                  PWCE_ID
             ) values (
-                ?, ?, ?, ?,
+                ?, date(?), ?, ?,
                 ?, ?,
                 ?, ?,
                 ?, ?,
                 ?, ?,
                 ?
             );
-        """.format(FLASHCARDS_TABLE_NAME), flashcard._replace(PWCENTRY=pwce_id))
+        """.format(FLASHCARDS_TABLE_NAME), flashcard._replace(
+            SCHEDULED=flashcard.SCHEDULED[1:11], PWCENTRY=pwce_id))
         db_connection.commit()
     except sqlite3.IntegrityError:
         logging.warning("Error occured while writing flashcard " + flashcard.ID
                         + " to the database.", exc_info=True)
+        return False
     except sqlite3.DatabaseError:
         logging.critical("Error occured while writing flashcard " + flashcard.ID
                          + " to the database. Quitting.", exc_info=True)
         sys.exit(1)
+    return True
 
 
 def read_and_save_flashcards(filewrp, db_connection):
@@ -333,8 +313,8 @@ def read_and_save_flashcards(filewrp, db_connection):
                                              "pwce_name is None but should"
                                              " have been set. Skipping flashcard")
                 flashcard = extract_flashcard(filewrp, pwce_name)
-                flashcards_counter += 1
-                insert_flashcard_into_db(flashcard, db_connection)
+                if insert_flashcard_into_db(flashcard, db_connection):
+                    flashcards_counter += 1
             elif is_org_header(line):
                 pwce_name = extract_pwce_name(line)
                 # filewrp.readline()
@@ -352,9 +332,7 @@ def read_and_save_flashcards(filewrp, db_connection):
     return flashcards_counter
 
 
-# saved as a constant because names of tables my change
-FLASHCARDS_TABLE_NAME = 'flashcards'
-PWCENTRIES_TABLE_NAME = 'pwcentries'
+
 
 
 def inspect_database(db_connection: sqlite3.Connection):
@@ -440,7 +418,9 @@ def __main__():
         with filewrp, db_connection:
             flashcards_counter = read_and_save_flashcards(filewrp, db_connection)
         db_connection.close()
-        logging.info("Succesfully parsed " + str(flashcards_counter) + "flashcards.")
+        logging.info("Successfully parsed " + str(flashcards_counter) + " flashcards.")
+        print("Successfully parsed", flashcards_counter, "flashcards. Press RETURN to finish.")
+        input()
 
 
 if __name__ == "__main__":
